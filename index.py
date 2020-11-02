@@ -1,17 +1,16 @@
 #!/usr/bin/python3
-from jinja2 import Template
+from modelo_registro import RegistrarUsuario
+import cgi
+
+datos = cgi.FieldStorage()
+
 print('Content-Type: text/html')
 print('')
 
-with open('index.html') as f:
-        doc = f.read()
-        template = Template(doc)
-        page = template.render(nombre="Juan", edad=19)
-        print(doc)
+username=datos.getvalue('uname')
+correo=datos.getvalue('correo')
+password=datos.getvalue('passw')
 
-#with open('index.html') as g:
-#        doc1 = g.read()
-#        template = Template(doc)
-#        page = template.render(nombre="Juan", edad=19)
-#        print(doc1)
+#print(username)
 
+print(RegistrarUsuario(username,correo,password))
