@@ -10,15 +10,28 @@
   <a href="#">Juegos</a>
  
   <div class = "container">
-	
-        <form action="">
-            <input type="text" placeholder="Busca Juegos {{nombre}}" name="browser">
+   
+
+    <FORM method=GET action="https://store.steampowered.com/search/?term=">
+    <fieldset>
                         
-        </form>
+        <INPUT TYPE=text id="s" placeholder="Busca Juegos {{nombre}}" name="term"  size="50" />
+        <font size=-1>
+                        
+    
+        <input type=radio name=sitesearch value="" /> En Steam</br>
+        <input type=radio name=sitesearch value="ec2-3-80-52-23.compute-1.amazonaws.com"checked /> En OnlyGames
+                        
+        <INPUT type=submit  id="x" name=btnG VALUE="Buscar" />
+        </font>
+    </fieldset>
+    </FORM>	
+                
+     
   </div>
   
 </nav>
-
+<img src="https://as.com/meristation/imagenes/2020/03/21/reportajes/1584789522_545134_1584789590_noticia_normal.jpg">
 
 <style>
         *{
