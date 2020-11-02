@@ -1,4 +1,5 @@
 #!/usr/bin/python3
+from jinja2 import Template
 from modelo_login import ObtenerUsuario
 import cgi
 
@@ -8,7 +9,7 @@ print('Content-Type: text/html')
 print('')
 
 username=datos.getvalue('uname')
-#correo=datos.getvalue('correo')
+
 password=datos.getvalue('passw')
 
 #print(username)
@@ -18,7 +19,9 @@ permiso=ObtenerUsuario(username,password)
 def render(file,modelo=False):
    with open(file) as f:
      pag=f.read()
-   return pag
+     template=Template(pag)
+     page = template.render(nombre=datos.getvalue('uname'))
+   return page
 
 if permiso:
   p=render("menup.html")
