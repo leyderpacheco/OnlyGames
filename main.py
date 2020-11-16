@@ -4,7 +4,7 @@ app=Flask(__name__)
 
 @app.route('/')
 def home():
-    return '<h1>cualquier cosa</h1>'
+    return render_template('indexinicial.html')
 
 
 @app.route('/about')
