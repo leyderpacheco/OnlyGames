@@ -1,3 +1,4 @@
+
 #!/usr/bin/python3
 
 import mysql.connector
@@ -10,14 +11,16 @@ def __init__(self):
 def ObtenerUsuario(username, password):
   try:
     cnx = mysql.connector.connect(user='leyder', password = '123', database='onlygames', host='127.0.0.1')
+    if cnx:
+      print ("conectado")
     cursor = cnx.cursor()
-    aux=True
+    
 
     query = ("SELECT * FROM usuarios where username= %s and password = sha(%s)")
 
     data_usr = (username, password)
     cursor.execute(query, data_usr)
-    record = cursor.fetchone()
+    #record = cursor.fetchone()
 
     #if record:
        #print(f'<p>Bienvenido</p> <h1>{record[0]}</h1>')
