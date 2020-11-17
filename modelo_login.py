@@ -17,9 +17,12 @@ def ObtenerUsuario(username, password):
     
 
     query = ("SELECT * FROM usuarios where username= %s and password = sha(%s)")
+  
 
     data_usr = (username, password)
     cursor.execute(query, data_usr)
+
+    
     #record = cursor.fetchone()
 
     #if record:
