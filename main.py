@@ -21,7 +21,7 @@ def reg():
 @app.route('/home')
 def home():
     if 'user_id' in session:
-        return render_template('menup.html')
+        return render_template('index.html')
     else:
         return redirect('/')
 
