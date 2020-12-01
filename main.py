@@ -1,12 +1,14 @@
-from flask import Flask, render_template,request,redirect,session
+from flask import Flask, render_template,request,redirect,session,jsonify,make_response
 import mysql.connector
 import os
+from steamGames import data
 
 app=Flask(__name__)
 app.secret_key=os.urandom(24)
 
 cnx=mysql.connector.connect(user='root', password = 'Millos14', database='onlygames', host='127.0.0.1',auth_plugin='mysql_native_password')
 cursor=cnx.cursor()
+
 
 
 @app.route('/')
@@ -21,7 +23,9 @@ def reg():
 @app.route('/home')
 def home():
     if 'user_id' in session:
+        
         return render_template('index.html')
+        
     else:
         return redirect('/')
 
@@ -62,6 +66,11 @@ def crear_usuario():
 def logout():
     session.pop('user_id')
     return redirect('/')
+
+@app.route('/games')
+def games():
+    return jsonify(data)
+
 
 if __name__ == "__main__":
     app.run(debug=True)
