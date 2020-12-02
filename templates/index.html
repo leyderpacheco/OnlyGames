@@ -37,7 +37,7 @@
                 <FORM method=GET action="https://store.steampowered.com/search/?term=">
                         <fieldset>
 
-                                <INPUT TYPE=text id="s" placeholder="Busca Juegos {{usuario}}" name="term" size="50" />
+                                <INPUT TYPE=text id="s" placeholder="Busca Juegos " name="term" size="50" />
                                 <font size=-1>
 
 
@@ -55,23 +55,21 @@
                         </fieldset>
                 </FORM>
         </nav>
-        <!-- Optional JavaScript; choose one of the two! -->
 
-        <!-- Option 1: jQuery and Bootstrap Bundle (includes Popper) -->
-        <div class="text-center text-light">
-                <h1>Lista de Juegos</h1>
+        <div id="app" class="text-light">
+                <div class="text-center">
+                        <button v-on:click="data" type="button" class="btn btn-outline-primary">MOSTRAR</button>
+                </div>
                 <br>
-        </div>
-        <div id="app">
-                <div class="container">
-                        <div class="row">
+                <div>
+                        <div>
                                 <div v-for="u in posts" class="col-6 col-sm-4">
                                         <br>
-                                        <div style="cursor: pointer;" class="card" style="width: 20rem;">
-                                                <img v-bind:src="u.background_image" class="card-img-top" alt="...">
-
-                                                <div class="card-body">
-                                                        <h1>{{u}}</h1>
+                                        <div>
+                                                <img v-bind:src="u.avatar">
+                                                <div>
+                                                        <h5>{{posts}} </h5>
+                                                
                                                 </div>
                                         </div>
 
@@ -80,9 +78,14 @@
                         </div>
                 </div>
 
-
-
         </div>
+
+
+
+
+
+
+
 
 
         <script>
@@ -90,30 +93,36 @@
                         el: '#app',
                         data: {
                                 posts: [],
-                                description: [],
-                                img: []
-
-
+                                onlyUser: [],
+                                supp: [],
                         },
-                        mounted() {
-                                axios.get('https://api.rawg.io/api/games')
-                                        .then(function (response) {
-                                                juegos = response.data.results;
+                        methods: {
+                                data: function () {
+                                        axios.get('https://api.rawg.io/api/games')
+                                                .then(response => {
+                                                        this.posts = response.data.results;
+                                                        console.log(this.posts);
+                                                })
+                                                .catch(error => console.error(error));
+                                },
+                                p: function (id) {
+                                        axios.get('https://reqres.in/api/users/' + id)
+                                                .then(response => {
+                                                        datos = response.data;
+                                                        this.supp = datos['support'];
+                                                        this.onlyUser = datos['data'];
+                                                        console.log(this.supp);
+                                                        $('#exampleModal').modal('show');
+                                                })
+                                                .catch(error => console.error(error));
+                                },
 
-                                                this.posts = juegos
-
-                                                console.log(this.posts)
-
-
-                                        })
                         }
+
                 })
-        </script>
 
 
-
-
-
+        </Script>
 
 </body>
 
