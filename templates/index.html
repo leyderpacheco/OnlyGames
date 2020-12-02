@@ -58,26 +58,63 @@
         <!-- Optional JavaScript; choose one of the two! -->
 
         <!-- Option 1: jQuery and Bootstrap Bundle (includes Popper) -->
+        <div class="text-center text-light">
+                <h1>Lista de Juegos</h1>
+                <br>
+        </div>
         <div id="app">
-                
-                <h1>{{data}}</h1>
+                <div class="container">
+                        <div class="row">
+                                <div v-for="u in posts" class="col-6 col-sm-4">
+                                        <br>
+                                        <div style="cursor: pointer;" class="card" style="width: 20rem;">
+                                                <img v-bind:src="u.background_image" class="card-img-top" alt="...">
+
+                                                <div class="card-body">
+                                                        <h1>{{u}}</h1>
+                                                </div>
+                                        </div>
+
+                                </div>
+                                <br>
+                        </div>
+                </div>
+
+
+
         </div>
 
+
         <script>
-                new Vue({
+                var app = new Vue({
                         el: '#app',
-                        data() {
-                                return {
-                                        info: null
-                                }
+                        data: {
+                                posts: [],
+                                description: [],
+                                img: []
+
+
                         },
                         mounted() {
-                                axios
-                                        .get('https://api.coindesk.com/v1/bpi/currentprice.json')
-                                        .then(response => (this.info = response))
+                                axios.get('https://api.rawg.io/api/games')
+                                        .then(function (response) {
+                                                juegos = response.data.results;
+
+                                                this.posts = juegos
+
+                                                console.log(this.posts)
+
+
+                                        })
                         }
                 })
         </script>
+
+
+
+
+
+
 </body>
 
 <style>

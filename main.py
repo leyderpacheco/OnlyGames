@@ -2,8 +2,11 @@ from flask import Flask, render_template,request,redirect,session,jsonify,make_r
 import mysql.connector
 import os
 from steamGames import data
+from flask_cors import CORS 
 
 app=Flask(__name__)
+CORS(app)
+
 app.secret_key=os.urandom(24)
 
 cnx=mysql.connector.connect(user='root', password = 'Millos14', database='onlygames', host='127.0.0.1',auth_plugin='mysql_native_password')
@@ -20,11 +23,11 @@ def log():
 def reg():
     return render_template('indexreg.html')
 
-@app.route('/home')
+@app.route('/home' ,methods=['GET'])
 def home():
     if 'user_id' in session:
         
-        return render_template('index.html')
+        return render_template('index.html',posts=data)
         
     else:
         return redirect('/')
