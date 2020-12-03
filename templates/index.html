@@ -58,19 +58,21 @@
 
         <div id="app">
                 <div class="text-center">
-                        <button v-on:click="data" type="button" class="btn btn-outline-primary">Mostrar Juegos Del Momento</button>
+                        <button v-on:click="data" type="button" class="btn btn-outline-primary">Mostrar Juegos Del
+                                Momento</button>
                 </div>
                 <br>
                 <div class="container">
                         <div class="row">
                                 <div v-for="u in posts" class="col-6 col-sm-4">
                                         <br>
-                                        <div v-on:click="p(u.id)" style="cursor: pointer;" class="card" style="width: 20rem;">
+                                        <div v-on:click="p(u.id)" style="cursor: pointer;" class="card"
+                                                style="width: 20rem;">
 
                                                 <br>
                                                 <div>
                                                         <img v-bind:src="u.background_image" height="300px"
-                                                        width="350px">
+                                                                width="350px">
                                                         <div>
                                                                 <h5>{{u.name}} </h5>
                                                                 <p>Rating: {{u.rating}}</p>
@@ -85,6 +87,29 @@
                                 <br>
                         </div>
                 </div>
+
+                <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                        <div class="modal-dialog">
+                          <div class="modal-content">
+                            <div class="modal-header">
+                              <h5 class="modal-title" id="exampleModalLabel"></h5>
+                              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                              </button>
+                            </div>
+                            <div class="modal-body">
+                              <img v-bind:src="onlyUser.background_image" alt="">
+                              
+
+                              <h4>Descripcion: {{supp}}</h4>
+                              
+                              
+                            </div>
+                            <div class="modal-footer">
+                            </div>
+                          </div>
+                        </div>
+                      </div>
 
 
         </div>
@@ -107,19 +132,22 @@
                         },
                         methods: {
                                 data: function () {
+
                                         axios.get('https://api.rawg.io/api/games')
+
                                                 .then(response => {
                                                         this.posts = response.data.results;
                                                         console.log(this.posts);
+
                                                 })
                                                 .catch(error => console.error(error));
                                 },
                                 p: function (id) {
-                                        axios.get('https://reqres.in/api/users/' + id)
+                                        axios.get('https://api.rawg.io/api/games/' + id)
                                                 .then(response => {
                                                         datos = response.data;
-                                                        this.supp = datos['support'];
-                                                        this.onlyUser = datos['data'];
+                                                        this.supp = datos['description'];
+                                                        this.onlyUser = datos['background_image'];
                                                         console.log(this.supp);
                                                         $('#exampleModal').modal('show');
                                                 })
@@ -167,5 +195,3 @@
 
 
 </html>
-
-
